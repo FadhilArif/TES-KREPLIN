@@ -221,52 +221,83 @@ h2 { margin: 12px 0 9px; font-size: clamp(1.75rem, 4vw, 2.65rem); line-height: 1
   line-height: 1.6;
 }
 
+/* During the timed test, remove the outer page padding and lock the viewport.
+   This prevents the browser scrollbar from stealing vertical space. */
+body:has(.test-screen.active) { overflow: hidden; }
+.app-shell:has(.test-screen.active) { padding: 0; }
+
 /* ---------- TEST ---------- */
-.test-screen { align-items: flex-start; padding-top: clamp(0px, 2vh, 18px); }
-.test-shell { width: min(760px, 100%); margin: auto; }
+/* The test UI is intentionally kept inside one viewport.
+   Users should never need to scroll while the timer is running. */
+.test-screen {
+  align-items: stretch;
+  padding: 10px 0;
+  min-height: 100dvh;
+  height: 100dvh;
+  overflow: hidden;
+}
+.test-shell {
+  width: min(760px, calc(100vw - 28px));
+  height: 100%;
+  min-height: 0;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
 .test-header {
-  position: sticky;
-  top: 10px;
+  flex: 0 0 auto;
+  position: relative;
+  top: auto;
   z-index: 5;
-  background: rgba(255,255,255,.94);
+  background: rgba(255,255,255,.96);
   backdrop-filter: blur(12px);
   border: 1px solid var(--line);
-  border-radius: 20px;
-  padding: 14px 18px;
-  box-shadow: 0 14px 32px rgba(28,52,84,.08);
+  border-radius: 18px;
+  padding: 10px 16px;
+  box-shadow: 0 10px 24px rgba(28,52,84,.07);
 }
 .progress-meta { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; text-align: center; }
-.meta-item { display: flex; flex-direction: column; gap: 3px; }
-.meta-item span { color: #8897aa; font-size: .7rem; }
-.meta-item strong { font-size: .98rem; }
-.progress-track { height: 7px; margin-top: 13px; overflow: hidden; border-radius: 999px; background: #e8eef5; }
+.meta-item { display: flex; flex-direction: column; gap: 2px; }
+.meta-item span { color: #8897aa; font-size: .66rem; }
+.meta-item strong { font-size: .92rem; }
+.progress-track { height: 6px; margin-top: 9px; overflow: hidden; border-radius: 999px; background: #e8eef5; }
 .progress-bar { height: 100%; width: 0; border-radius: inherit; background: var(--blue); transition: width .08s linear; }
 
 .question-card {
   position: relative;
-  min-height: min(52vh, 455px);
-  margin: 16px auto 13px;
+  flex: 1 1 auto;
+  min-height: 0;
+  margin: 10px auto 9px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   border: 1px solid var(--line);
-  border-radius: 24px;
+  border-radius: 22px;
   background: rgba(255,255,255,.97);
-  box-shadow: 0 20px 45px rgba(28,52,84,.08);
+  box-shadow: 0 14px 34px rgba(28,52,84,.07);
+  overflow: hidden;
 }
-.question-label { margin-bottom: 18px; color: #98a5b5; font-size: .68rem; font-weight: 800; letter-spacing: .14em; }
-.big-number { font-size: clamp(4.4rem, 14vw, 7rem); font-weight: 800; line-height: .78; letter-spacing: -.075em; }
-.question-mark { margin: 13px 0; color: #4791f6; font-size: clamp(2.4rem, 7vw, 3.5rem); font-weight: 800; line-height: .8; }
-.keypad { width: min(520px, 100%); margin: 0 auto; display: grid; grid-template-columns: repeat(3, minmax(70px, 1fr)); gap: 9px; }
+.question-label { margin-bottom: 12px; color: #98a5b5; font-size: .62rem; font-weight: 800; letter-spacing: .14em; }
+.big-number { font-size: clamp(3.5rem, 9vh, 5.4rem); font-weight: 800; line-height: .78; letter-spacing: -.075em; }
+.question-mark { margin: 10px 0; color: #4791f6; font-size: clamp(2rem, 5.5vh, 3rem); font-weight: 800; line-height: .8; }
+.keypad {
+  flex: 0 0 auto;
+  width: min(470px, 100%);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(70px, 1fr));
+  gap: 7px;
+}
 .digit-btn {
-  height: 62px;
+  height: clamp(47px, 7.2vh, 58px);
   border: 1px solid var(--line);
-  border-radius: 14px;
+  border-radius: 13px;
   background: #fff;
   color: #34455e;
-  box-shadow: 0 7px 16px rgba(28,52,84,.055);
-  font-size: 1.2rem;
+  box-shadow: 0 5px 12px rgba(28,52,84,.045);
+  font-size: 1.08rem;
   font-weight: 800;
   cursor: pointer;
   transition: transform .08s ease, background .08s ease, border-color .08s ease;
@@ -277,7 +308,14 @@ h2 { margin: 12px 0 9px; font-size: clamp(1.75rem, 4vw, 2.65rem); line-height: 1
 .digit-btn:active,
 .digit-btn.active-pulse { transform: scale(.96); background: var(--blue-soft); color: var(--blue); border-color: #9fc8ff; }
 .zero-btn { grid-column: 2; }
-.test-hint { margin: 11px 0 0; color: #7c8ca2; text-align: center; font-size: .72rem; line-height: 1.5; }
+.test-hint {
+  flex: 0 0 auto;
+  margin: 7px 0 0;
+  color: #7c8ca2;
+  text-align: center;
+  font-size: .68rem;
+  line-height: 1.35;
+}
 .keyboard-key { display: inline-block; padding: 2px 6px; border: 1px solid #d7e0e9; border-bottom-width: 2px; border-radius: 5px; background: #fff; color: #63738a; font-weight: 700; }
 
 /* ---------- RESULT ---------- */
@@ -353,20 +391,23 @@ h2 { margin: 12px 0 9px; font-size: clamp(1.75rem, 4vw, 2.65rem); line-height: 1
   .app-shell { padding: 12px; }
   .screen { min-height: calc(100vh - 24px); }
   .score-grid, .summary-grid { grid-template-columns: 1fr 1fr; }
-  .question-card { min-height: 46vh; }
+  .test-screen { padding: 8px 0; }
+  .test-shell { width: min(760px, calc(100vw - 24px)); }
+  .question-card { min-height: 0; }
 }
 
 @media (max-width: 520px) {
   .landing-card, .instruction-card, .result-card { border-radius: 20px; }
   .landing-card { padding: 32px 20px; }
   .instruction-card, .result-card { padding: 23px 18px; }
-  .test-screen { padding-top: 0; }
-  .test-header { top: 5px; padding: 11px 12px; border-radius: 16px; }
+  .test-screen { padding: 6px 0; }
+  .test-shell { width: calc(100vw - 20px); }
+  .test-header { padding: 9px 12px; border-radius: 16px; }
   .meta-item span { font-size: .64rem; }
   .meta-item strong { font-size: .88rem; }
-  .question-card { min-height: 42vh; margin-top: 11px; border-radius: 20px; }
-  .keypad { gap: 7px; }
-  .digit-btn { height: 58px; border-radius: 13px; }
+  .question-card { min-height: 0; margin-top: 8px; margin-bottom: 7px; border-radius: 18px; }
+  .keypad { gap: 6px; }
+  .digit-btn { height: clamp(44px, 7.5vh, 55px); border-radius: 12px; }
   .instruction-grid, .score-grid, .summary-grid { grid-template-columns: 1fr; }
   .example-layout { gap: 12px; }
   .example-results { min-width: 0; flex: 1; }
@@ -383,15 +424,30 @@ h2 { margin: 12px 0 9px; font-size: clamp(1.75rem, 4vw, 2.65rem); line-height: 1
 @media (max-width: 360px) {
   .app-shell { padding: 8px; }
   .screen { min-height: calc(100vh - 16px); }
-  .question-card { min-height: 39vh; }
-  .big-number { font-size: 4.2rem; }
-  .question-mark { margin: 11px 0; }
-  .digit-btn { height: 54px; }
+  .test-screen { padding: 4px 0; }
+  .test-shell { width: calc(100vw - 12px); }
+  .question-card { min-height: 0; margin-top: 6px; margin-bottom: 5px; }
+  .big-number { font-size: 3.5rem; }
+  .question-mark { margin: 8px 0; font-size: 2rem; }
+  .digit-btn { height: 43px; }
+  .test-hint { font-size: .62rem; }
 }
 
 @media (min-width: 1200px) {
-  .test-shell { width: min(820px, 82vw); }
-  .question-card { min-height: 500px; }
+  .test-shell { width: min(760px, 82vw); }
+}
+
+/* Short laptop / tablet landscape screens: prioritize the keypad and timer. */
+@media (max-height: 700px) and (min-width: 521px) {
+  .test-screen { padding: 5px 0; }
+  .test-header { padding: 8px 14px; }
+  .progress-track { margin-top: 7px; height: 5px; }
+  .question-card { margin: 7px auto 6px; }
+  .question-label { margin-bottom: 8px; }
+  .big-number { font-size: clamp(3.1rem, 9vh, 4.7rem); }
+  .question-mark { margin: 7px 0; font-size: 2.3rem; }
+  .digit-btn { height: clamp(43px, 7vh, 52px); }
+  .test-hint { margin-top: 5px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
