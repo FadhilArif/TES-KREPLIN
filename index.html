@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#f4f7fb" />
+  <meta name="description" content="Platform latihan Tes Kraepelin — 50 kolom, 26 soal per kolom, 15 detik per kolom." />
+  <title>Kraepelin Practice — Latihan Psikotes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main id="app" class="app-shell">
+    <!-- LANDING -->
+    <section id="landingView" class="screen active">
+      <div class="landing-card card">
+        <div class="brand-badge"><span class="brand-dot"></span>KRAEPELIN PRACTICE</div>
+        <div class="hero-icon" aria-hidden="true"><span>+</span></div>
+        <h1>Selamat datang di<br><strong>Tes Kraepelin</strong></h1>
+        <p class="landing-subtitle">Latihan fokus, kecepatan, ketelitian, dan ketahanan kerja dalam simulasi 50 kolom.</p>
+        <div class="test-specs" aria-label="Informasi tes">
+          <span><b>50</b> kolom</span>
+          <span><b>26</b> soal/kolom</span>
+          <span><b>15s</b> per kolom</span>
+        </div>
+        <button id="startIntroBtn" class="primary-btn large-btn">Mulai <span aria-hidden="true">→</span></button>
+        <p class="comfort-note">Pastikan kamu dalam keadaan yang baik dan nyaman sebelum melakukan tes.</p>
+        <p class="privacy-note">Tanpa login • hasil tidak disimpan setelah tes selesai</p>
+      </div>
+    </section>
+
+    <!-- INSTRUCTIONS -->
+    <section id="instructionView" class="screen">
+      <div class="instruction-card card">
+        <div class="section-heading">
+          <div>
+            <div class="step-label">SEBELUM MULAI</div>
+            <h2>Kenali cara mengerjakannya</h2>
+          </div>
+          <div class="step-count">1 / 1</div>
+        </div>
+        <p class="instruction-lead">Jumlahkan dua angka yang berdekatan, mulai dari <strong>bawah ke atas</strong>. Pilih <strong>angka satuannya</strong> sebagai jawaban.</p>
+
+        <div class="example-layout">
+          <div class="example-column">
+            <span>8</span>
+            <span>5</span>
+            <span>7</span>
+            <span>3</span>
+          </div>
+          <div class="example-arrow" aria-hidden="true">→</div>
+          <div class="example-results">
+            <div><span>3 + 7 = 10</span><strong>0</strong></div>
+            <div><span>7 + 5 = 12</span><strong>2</strong></div>
+            <div><span>5 + 8 = 13</span><strong>3</strong></div>
+          </div>
+        </div>
+
+        <div class="instruction-grid">
+          <div class="tip"><span>01</span><div><b>Mulai dari bawah</b><small>Naik ke angka tepat di atasnya.</small></div></div>
+          <div class="tip"><span>02</span><div><b>Ambil angka satuan</b><small>Contoh: 7 + 5 = 12 → pilih 2.</small></div></div>
+          <div class="tip"><span>03</span><div><b>Kerjakan cepat & teliti</b><small>Jangan terpaku pada satu soal terlalu lama.</small></div></div>
+          <div class="tip"><span>04</span><div><b>Waktu berpindah otomatis</b><small>Setiap kolom memiliki waktu 15 detik.</small></div></div>
+        </div>
+
+        <div class="warning-box"><strong>Siap?</strong> Setelah tombol ditekan, timer langsung berjalan. Selama tes berlangsung, progress tetap aman jika halaman tidak sengaja di-refresh.</div>
+        <button id="startTestBtn" class="primary-btn large-btn">Mulai Test <span aria-hidden="true">→</span></button>
+      </div>
+    </section>
+
+    <!-- TEST -->
+    <section id="testView" class="screen test-screen">
+      <div class="test-shell">
+        <header class="test-header">
+          <div class="progress-meta">
+            <div class="meta-item"><span>Kolom</span><strong id="columnCounter">1/50</strong></div>
+            <div class="meta-item"><span>Soal</span><strong id="questionCounter">1/26</strong></div>
+            <div class="meta-item"><span>Waktu</span><strong id="timeCounter">15s</strong></div>
+          </div>
+          <div class="progress-track" aria-label="Progress tes"><div id="progressBar" class="progress-bar"></div></div>
+        </header>
+
+        <div class="question-card" aria-live="polite">
+          <div class="question-label">JUMLAHKAN</div>
+          <div id="topNumber" class="big-number">8</div>
+          <div id="questionMark" class="question-mark">?</div>
+          <div id="bottomNumber" class="big-number">5</div>
+        </div>
+
+        <div id="keypad" class="keypad" aria-label="Pilih jawaban">
+          <button class="digit-btn" data-digit="7">7</button>
+          <button class="digit-btn" data-digit="8">8</button>
+          <button class="digit-btn" data-digit="9">9</button>
+          <button class="digit-btn" data-digit="4">4</button>
+          <button class="digit-btn" data-digit="5">5</button>
+          <button class="digit-btn" data-digit="6">6</button>
+          <button class="digit-btn" data-digit="1">1</button>
+          <button class="digit-btn" data-digit="2">2</button>
+          <button class="digit-btn" data-digit="3">3</button>
+          <button class="digit-btn zero-btn" data-digit="0">0</button>
+        </div>
+
+        <div class="test-hint"><span class="keyboard-key">0–9</span> bisa ditekan lewat keyboard • Jawaban langsung berpindah ke soal berikutnya</div>
+      </div>
+    </section>
+
+    <!-- RESULT -->
+    <section id="resultView" class="screen">
+      <div class="result-card card">
+        <div class="result-hero">
+          <div class="success-icon" aria-hidden="true">✓</div>
+          <div>
+            <div class="step-label">HASIL LATIHAN</div>
+            <h2>Tes selesai 🎉</h2>
+            <p class="result-intro">Ini gambaran performamu selama 50 kolom. Simpan PDF sekarang kalau ingin menyimpan hasil ini.</p>
+          </div>
+        </div>
+
+        <div class="score-grid">
+          <article class="score-card"><span class="score-label">Kecepatan</span><strong id="speedScore">0%</strong><small id="speedLevel">-</small><div class="score-track"><i></i></div></article>
+          <article class="score-card"><span class="score-label">Ketelitian</span><strong id="accuracyScore">0%</strong><small id="accuracyLevel">-</small><div class="score-track"><i></i></div></article>
+          <article class="score-card"><span class="score-label">Konsistensi</span><strong id="consistencyScore">0%</strong><small id="consistencyLevel">-</small><div class="score-track"><i></i></div></article>
+          <article class="score-card"><span class="score-label">Ketahanan</span><strong id="enduranceScore">0%</strong><small id="enduranceLevel">-</small><div class="score-track"><i></i></div></article>
+        </div>
+
+        <div class="summary-grid">
+          <div><span>Total dijawab</span><strong id="answeredSummary">0 / 1300</strong></div>
+          <div><span>Total benar</span><strong id="correctSummary">0</strong></div>
+          <div><span>Total salah</span><strong id="wrongSummary">0</strong></div>
+          <div><span>Rata-rata / kolom</span><strong id="avgSummary">0</strong></div>
+        </div>
+
+        <div class="chart-wrap">
+          <div class="chart-heading"><div><b>Grafik performa</b><span>Jumlah jawaban per kolom</span></div><span class="chart-badge">1–50</span></div>
+          <canvas id="performanceChart" width="900" height="300"></canvas>
+        </div>
+
+        <div class="disclaimer"><b>Catatan penting:</b> skor pada aplikasi ini adalah <strong>skor latihan internal</strong> untuk membantu mengevaluasi pola performa. Ini bukan norma resmi kelulusan psikotes, bukan diagnosis psikologis, dan tidak menggantikan penilaian psikolog.</div>
+
+        <div class="result-actions">
+          <button id="downloadPdfBtn" class="primary-btn large-btn">↓ &nbsp; Download Hasil PDF</button>
+          <button id="finishBtn" class="secondary-btn large-btn">Selesai</button>
+        </div>
+        <p class="result-expire-note">Hasil hanya tersedia selama halaman ini terbuka. Setelah kamu meninggalkan hasil, data tidak dapat dipulihkan.</p>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
